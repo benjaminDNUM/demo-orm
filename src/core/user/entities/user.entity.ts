@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Gender } from '../interfaces/user.interface';
 
 @Entity('users')
 export class User {
@@ -14,7 +15,7 @@ export class User {
   @Column({ type: 'varchar', length: 40 })
   email: string;
 
-  @Column({ type: 'int' })
+  @Column({ type: 'int', nullable: true })
   age: number;
 
   @Column({ type: 'enum', enum: ['m', 'f', 'u'] })
@@ -23,5 +24,5 @@ export class User {
    * f - female
    * u - unspecified
    */
-  gender: string;
+  gender: Gender;
 }
