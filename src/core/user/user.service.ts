@@ -11,11 +11,15 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async create(user: UserInterface) {
-    await this.userRepository.save(user);
+  async create(user: UserInterface): Promise<User> {
+    return await this.userRepository.save(user);
   }
 
-  findAll() {
-    return `This action returns all user`;
+  async findOne(id: number): Promise<User> {
+    return await this.userRepository.findOneBy({ id });
+  }
+
+  async findAll() {
+    return await this.userRepository.find();
   }
 }
