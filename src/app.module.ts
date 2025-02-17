@@ -1,25 +1,25 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ApiUserModule } from './api/user/api.user.module';
-import { User } from './core/user/entities/user.entity';
-import { Jv } from './core/jv/entities/jv.entity';
-import { ApiJvModule } from './api/jv/api.jv.module';
+import { ApiVaoModule } from './api/vao/api.vao.module';
+import { Hebergement } from './core/hebergement/entities/hebergement';
+import { Adresse } from './core/adresse/adresse.entity';
+import { HebergementStatut } from './core/hebergement/entities/hebergement-statut';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
       host: 'localhost',
-      port: 5432,
-      password: 'postgres',
-      username: 'postgres',
-      entities: [User, Jv],
-      database: 'pgWithNest',
-      synchronize: true,
+      port: 5436,
+      password: 'vao_pwd',
+      username: 'vao_u',
+      database: 'vao_u',
+      schema: 'front',
+      synchronize: false,
       logging: true,
+      entities: [Hebergement, Adresse, HebergementStatut],
     }),
-    ApiUserModule,
-    ApiJvModule,
+    ApiVaoModule,
   ],
   controllers: [],
   providers: [],
