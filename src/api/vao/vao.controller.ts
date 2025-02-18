@@ -1,7 +1,6 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { ApiVaoService } from './api.vao.service';
 import { Hebergement } from '../../core/hebergement/entities/hebergement';
-import { UpdateResult } from 'typeorm';
 
 @Controller('vao')
 export class VaoController {
@@ -15,6 +14,11 @@ export class VaoController {
   @Get('with-relation')
   async findAllWithRelation(): Promise<Hebergement[]> {
     return await this.vaoService.findAllWithRelation();
+  }
+
+  @Get('pagination')
+  async findAllWithPagination(): Promise<[Hebergement[], number]> {
+    return await this.vaoService.findAllWithPagination();
   }
 
   @Get('group-by')

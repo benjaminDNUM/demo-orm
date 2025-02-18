@@ -5,6 +5,7 @@ import {
   ManyToOne,
   OneToOne,
   PrimaryGeneratedColumn,
+  VirtualColumn,
 } from 'typeorm';
 import { Adresse } from '../../adresse/adresse.entity';
 import { HebergementStatut } from './hebergement-statut';
@@ -26,11 +27,18 @@ export class Hebergement {
   @Column({ type: 'uuid', name: 'hebergement_id' })
   hebergementId: string;
 
-  @ManyToOne(() => Adresse, (adresse) => adresse.hebergements)
+  @ManyToOne(() => Adresse, (adresse) => adresse.hebergements, { eager: true })
   @JoinColumn({ referencedColumnName: 'id', name: 'adresse_id' })
   adresse: Adresse;
 
-  @OneToOne(() => HebergementStatut, { eager: true })
+  @OneToOne(() => HebergementStatut)
   @JoinColumn({ referencedColumnName: 'id', name: 'statut_id' })
   statut: HebergementStatut;
+
+  @VirtualColumn({
+    type: 'varchar',
+    query: (alias) =>
+      `SELECT value FROM "front"."hebergement_statut" WHERE "id" = ${alias}.statut_id`,
+  })
+  statutValue: string;
 }

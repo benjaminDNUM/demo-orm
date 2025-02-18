@@ -14,6 +14,10 @@ export class ApiVaoService {
     return await this.hebergementService.findAllWithRelation();
   }
 
+  async findAllWithPagination(): Promise<[Hebergement[], number]> {
+    return await this.hebergementService.findAllWithPagination();
+  }
+
   async findBy(): Promise<Hebergement[]> {
     return await this.hebergementService.findBy();
   }

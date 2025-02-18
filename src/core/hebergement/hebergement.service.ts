@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Hebergement } from './entities/hebergement';
-import { DataSource, Repository, UpdateResult } from 'typeorm';
+import { DataSource, Repository } from 'typeorm';
 import { Adresse } from '../adresse/adresse.entity';
 
 @Injectable()
@@ -18,9 +18,32 @@ export class HebergementService {
 
   async findAllWithRelation(): Promise<Hebergement[]> {
     return await this.hebergementRepository.find({
+      select: {
+        id: true,
+        nom: true,
+        statut: { value: true },
+        adresse: { cleInsee: true, codeInsee: true },
+      },
       relations: {
         adresse: true,
       },
+      skip: 2,
+      take: 2,
+    });
+  }
+
+  async findAllWithPagination(): Promise<[Hebergement[], number]> {
+    return await this.hebergementRepository.findAndCount({
+      select: {
+        id: true,
+        nom: true,
+        adresse: { cleInsee: true, codeInsee: true },
+        statutValue: true,
+      },
+      relations: {
+        adresse: true,
+      },
+      skip: 2,
       take: 2,
     });
   }
