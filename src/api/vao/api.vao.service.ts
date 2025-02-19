@@ -10,6 +10,10 @@ export class ApiVaoService {
     return await this.hebergementService.findAll();
   }
 
+  async findById(): Promise<Hebergement[]> {
+    return await this.hebergementService.findById();
+  }
+
   async findAllWithRelation(): Promise<Hebergement[]> {
     return await this.hebergementService.findAllWithRelation();
   }

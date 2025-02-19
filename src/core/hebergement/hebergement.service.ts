@@ -16,19 +16,18 @@ export class HebergementService {
     return await this.hebergementRepository.find();
   }
 
+  async findById(): Promise<Hebergement[]> {
+    return await this.hebergementRepository.find({ where: { id: 1 } });
+  }
+
   async findAllWithRelation(): Promise<Hebergement[]> {
     return await this.hebergementRepository.find({
       select: {
         id: true,
         nom: true,
-        statut: { value: true },
         adresse: { cleInsee: true, codeInsee: true },
+        statutValue: true,
       },
-      relations: {
-        adresse: true,
-      },
-      skip: 2,
-      take: 2,
     });
   }
 
@@ -39,9 +38,6 @@ export class HebergementService {
         nom: true,
         adresse: { cleInsee: true, codeInsee: true },
         statutValue: true,
-      },
-      relations: {
-        adresse: true,
       },
       skip: 2,
       take: 2,

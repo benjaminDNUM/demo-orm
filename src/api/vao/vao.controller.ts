@@ -11,6 +11,11 @@ export class VaoController {
     return await this.vaoService.findAll();
   }
 
+  @Get('by-id')
+  async findById(): Promise<Hebergement[]> {
+    return await this.vaoService.findById();
+  }
+
   @Get('with-relation')
   async findAllWithRelation(): Promise<Hebergement[]> {
     return await this.vaoService.findAllWithRelation();
